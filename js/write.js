@@ -115,13 +115,16 @@ function initializeWritePage() {
       ? generalTitleInput.value
       : simpleTitleSelect.value === "직접 입력"
         ? simpleCustomTitle.value
-        : simpleTitleSelect.value).trim();
-    const content = contentInput.value.trim();
+        : simpleTitleSelect.value);
+    const validation = validateDiaryInput({
+      mode,
+      title,
+      mood,
+      content: contentInput.value,
+    });
 
-    if (!title || !mood || (mode === "general" && !content)) {
-      formMessage.textContent = mode === "general"
-        ? "제목, 내용, 감정을 모두 입력해 주세요."
-        : "제목과 감정을 선택해 주세요.";
+    if (!validation.valid) {
+      formMessage.textContent = validation.message;
       return;
     }
 
@@ -129,9 +132,9 @@ function initializeWritePage() {
     const entry = {
       id: createId(),
       mode,
-      title,
-      content,
-      mood,
+      title: validation.title,
+      content: validation.content,
+      mood: validation.mood,
       createdAt: now,
       updatedAt: now,
     };

@@ -6,7 +6,9 @@ const scriptFiles = [
   "data.js",
   "list.js",
   "stats.js",
+  "validation.js",
   "write.js",
+  "detail.js",
 ];
 
 function runProjectScript(fileName) {
@@ -44,6 +46,16 @@ function getWeeklyDays(entries, referenceDate) {
     ${JSON.stringify(entries)},
     new Date(${referenceDate.getFullYear()}, ${referenceDate.getMonth()}, ${referenceDate.getDate()}, 12)
   )`);
+}
+
+function openEditForm(entry) {
+  const savedEntries = [entry];
+  setEntries(savedEntries);
+  localStorage.setItem("maeum-diary-entries", JSON.stringify(savedEntries));
+  window.history.replaceState({}, "", `/diary.html?id=${encodeURIComponent(entry.id)}`);
+  loadPageMarkup("diary.html", "detail");
+  window.eval("initializeDetailPage()");
+  document.querySelector(".secondary-button").click();
 }
 
 beforeAll(() => {
@@ -192,6 +204,78 @@ describe("일기 작성", () => {
 
     expect(localStorage.getItem("maeum-diary-entries")).toBeNull();
     expect(document.querySelector("#form-message").textContent).toContain("제목, 내용, 감정을 모두 입력");
+  });
+});
+
+describe("일기 수정", () => {
+  test("유효한 수정 내용을 공백 제거 후 저장한다", () => {
+    const entry = makeEntry(
+      "edit-general",
+      "기쁨",
+      "2026-11-17T09:30:00.000Z",
+      "general",
+      "기존 제목",
+    );
+    openEditForm(entry);
+    document.querySelector("#edit-title").value = "  수정 제목  ";
+    document.querySelector("#edit-content").value = "  수정 내용  ";
+    document.querySelector('input[name="mood"][value="평온"]').checked = true;
+    document.querySelector(".edit-form").dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true }),
+    );
+
+    const saved = JSON.parse(localStorage.getItem("maeum-diary-entries"));
+    expect(saved[0]).toMatchObject({
+      title: "수정 제목",
+      content: "수정 내용",
+      mood: "평온",
+    });
+    expect(document.querySelector(".edit-form")).toBeNull();
+  });
+
+  test.each([
+    ["공백뿐인 제목", " \t ", "유효한 내용"],
+    ["공백뿐인 내용", "유효한 제목", " \n "],
+  ])("일반 모드에서 %s인 수정 내용을 거부한다", (_caseName, title, content) => {
+    const entry = makeEntry(
+      "edit-general",
+      "기쁨",
+      "2026-11-17T09:30:00.000Z",
+      "general",
+      "기존 제목",
+    );
+    openEditForm(entry);
+    document.querySelector("#edit-title").value = title;
+    document.querySelector("#edit-content").value = content;
+    document.querySelector(".edit-form").dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true }),
+    );
+
+    expect(JSON.parse(localStorage.getItem("maeum-diary-entries"))[0]).toEqual(entry);
+    expect(document.querySelector(".form-message").textContent).toBe("제목, 내용, 감정을 모두 입력해 주세요.");
+  });
+
+  test("간단 모드에서 빈 내용으로 수정할 수 있다", () => {
+    const entry = makeEntry(
+      "edit-simple",
+      "평온",
+      "2026-11-17T09:30:00.000Z",
+      "simple",
+      "그저 그랬다",
+    );
+    openEditForm(entry);
+    document.querySelector("#edit-title").value = "수정된 제목";
+    document.querySelector("#edit-content").value = "";
+    document.querySelector(".edit-form").dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true }),
+    );
+
+    expect(JSON.parse(localStorage.getItem("maeum-diary-entries"))[0]).toMatchObject({
+      title: "수정된 제목",
+      content: "",
+      mode: "simple",
+    });
+    expect(document.querySelector(".edit-form")).toBeNull();
   });
 });
 

@@ -117,22 +117,25 @@ function initializeDetailPage() {
     form.append(titleField, moodField, contentField, message, actions);
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const titleValue = form.querySelector("#edit-title").value.trim();
-      const contentValue = contentInput.value.trim();
+      const titleValue = form.querySelector("#edit-title").value;
       const moodValue = form.querySelector('input[name="mood"]:checked')?.value;
+      const validation = validateDiaryInput({
+        mode: entry.mode,
+        title: titleValue,
+        mood: moodValue,
+        content: contentInput.value,
+      });
 
-      if (!titleValue || !moodValue || (entry.mode === "general" && !contentValue)) {
-        message.textContent = entry.mode === "general"
-          ? "제목, 내용, 감정을 모두 입력해 주세요."
-          : "제목과 감정을 선택해 주세요.";
+      if (!validation.valid) {
+        message.textContent = validation.message;
         return;
       }
 
       const updatedEntry = {
         ...entry,
-        title: titleValue,
-        content: contentValue,
-        mood: moodValue,
+        title: validation.title,
+        content: validation.content,
+        mood: validation.mood,
         updatedAt: new Date().toISOString(),
       };
       const nextEntries = entries.map((item) => item.id === entry.id ? updatedEntry : item);

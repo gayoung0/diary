@@ -137,7 +137,7 @@ function initializeDetailPage() {
       };
       const nextEntries = entries.map((item) => item.id === entry.id ? updatedEntry : item);
       if (!saveEntries(nextEntries)) {
-        message.textContent = "수정 내용을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.";
+        message.textContent = getStorageWriteErrorMessage("수정");
         return;
       }
       Object.assign(entry, updatedEntry);
@@ -152,7 +152,7 @@ function initializeDetailPage() {
     if (!window.confirm("이 일기를 삭제할까요? 삭제한 일기는 되돌릴 수 없습니다.")) return;
     const nextEntries = entries.filter((item) => item.id !== entry.id);
     if (!saveEntries(nextEntries)) {
-      window.alert("일기를 삭제하지 못했어요. 브라우저 저장 공간을 확인해 주세요.");
+      window.alert(getStorageWriteErrorMessage("삭제"));
       return;
     }
     window.location.href = "index.html";

@@ -137,7 +137,7 @@ function initializeWritePage() {
     };
 
     if (!saveEntries([entry, ...entries])) {
-      formMessage.textContent = "저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.";
+      formMessage.textContent = getStorageWriteErrorMessage("저장");
       return;
     }
     try {

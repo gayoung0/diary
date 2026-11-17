@@ -83,6 +83,68 @@ describe("일기 저장소", () => {
     expect(document.querySelector('[role="alert"]').textContent).toContain("저장된 일기를 읽지 못했습니다");
     consoleError.mockRestore();
   });
+
+  test("읽기 실패 후 새 일기 저장을 시도해도 localStorage 원본을 보존한다", () => {
+    const originalValue = "{잘못된 json";
+    localStorage.setItem("maeum-diary-entries", originalValue);
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    window.eval("entries = loadEntries()");
+
+    loadPageMarkup("write.html", "write");
+    window.eval("initializeWritePage()");
+    window.eval("renderStorageWarning()");
+    document.querySelector("#simple-title").value = "좋았다";
+    document.querySelector('input[name="mood"][value="평온"]').checked = true;
+    document.querySelector("#diary-form").dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true }),
+    );
+
+    expect(localStorage.getItem("maeum-diary-entries")).toBe(originalValue);
+    expect(document.querySelector("#form-message").textContent).toContain("원본 보호를 위해 저장할 수 없습니다");
+    expect(document.querySelector('[role="alert"]').textContent).toContain("저장·수정·삭제를 막았습니다");
+  });
+
+  test("읽기 실패 상태에서는 공통 저장 함수가 변경을 거부하고 원본을 보존한다", () => {
+    const originalValue = '[{"not":"valid diary data"}]';
+    localStorage.setItem("maeum-diary-entries", originalValue);
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    window.eval("entries = loadEntries()");
+
+    expect(window.eval("saveEntries([])")).toBe(false);
+    expect(localStorage.getItem("maeum-diary-entries")).toBe(originalValue);
+  });
+
+  test.each([
+    ["createdAt이 잘못된 날짜", { createdAt: "not-a-date" }],
+    ["createdAt이 달력에 없는 날짜", { createdAt: "2026-02-31T12:00:00.000Z" }],
+    ["updatedAt이 잘못된 날짜", { updatedAt: "not-a-date" }],
+    ["제목이 공백뿐인 경우", { title: " \t " }],
+    ["일반 모드의 내용이 공백뿐인 경우", { mode: "general", content: " \n " }],
+    ["허용되지 않은 모드", { mode: "unknown" }],
+    ["허용되지 않은 감정", { mood: "즐거움" }],
+  ])("%s인 저장 데이터는 읽기 실패로 처리하고 원본을 보존한다", (_caseName, overrides) => {
+    const invalidEntry = {
+      ...makeEntry("invalid-entry", "기쁨", "2026-11-17T09:30:00.000Z"),
+      ...overrides,
+    };
+    const originalValue = JSON.stringify([invalidEntry]);
+    localStorage.setItem("maeum-diary-entries", originalValue);
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    expect(window.eval("loadEntries()")).toEqual([]);
+    expect(window.eval("storageLoadFailed")).toBe(true);
+    expect(localStorage.getItem("maeum-diary-entries")).toBe(originalValue);
+  });
+
+  test("간단 모드의 빈 내용은 유효한 저장 데이터로 불러온다", () => {
+    const savedEntries = [
+      makeEntry("simple-entry", "평온", "2026-11-17T09:30:00.000Z"),
+    ];
+    localStorage.setItem("maeum-diary-entries", JSON.stringify(savedEntries));
+
+    expect(window.eval("loadEntries()")).toEqual(savedEntries);
+    expect(window.eval("storageLoadFailed")).toBe(false);
+  });
 });
 
 describe("일기 작성", () => {

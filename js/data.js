@@ -35,7 +35,7 @@ function renderStorageWarning() {
   const warning = document.createElement("p");
   warning.className = "storage-warning";
   warning.setAttribute("role", "alert");
-  warning.textContent = "저장된 일기를 읽지 못했습니다. 브라우저 저장 공간을 확인해 주세요.";
+  warning.textContent = "저장된 일기를 읽지 못했습니다. 원본 데이터를 보호하기 위해 저장·수정·삭제를 막았습니다. 기존 데이터는 삭제하지 않았습니다. 브라우저 저장 공간을 확인해 주세요.";
   document.querySelector("main").prepend(warning);
 }
 
@@ -45,13 +45,40 @@ function isDiaryEntry(value) {
     && typeof value.id === "string"
     && (value.mode === "simple" || value.mode === "general")
     && typeof value.title === "string"
+    && value.title.trim() !== ""
     && typeof value.content === "string"
+    && (value.mode !== "general" || value.content.trim() !== "")
     && MOODS.some((mood) => mood.name === value.mood)
-    && typeof value.createdAt === "string"
-    && typeof value.updatedAt === "string";
+    && isValidDateString(value.createdAt)
+    && isValidDateString(value.updatedAt);
+}
+
+function isValidDateString(value) {
+  if (typeof value !== "string" || !Number.isFinite(Date.parse(value))) return false;
+
+  const dateParts = /^(\d{4})-(\d{2})-(\d{2})(?:T|$)/.exec(value);
+  if (!dateParts) return false;
+
+  const year = Number(dateParts[1]);
+  const month = Number(dateParts[2]);
+  const day = Number(dateParts[3]);
+  const calendarDate = new Date(0);
+  calendarDate.setUTCFullYear(year, month - 1, day);
+  return calendarDate.getUTCFullYear() === year
+    && calendarDate.getUTCMonth() === month - 1
+    && calendarDate.getUTCDate() === day;
+}
+
+function getStorageWriteErrorMessage(action) {
+  if (storageLoadFailed) {
+    return `저장된 데이터를 읽지 못해 원본 보호를 위해 ${action}할 수 없습니다.`;
+  }
+  return `${action}하지 못했어요. 브라우저 저장 공간을 확인해 주세요.`;
 }
 
 function saveEntries(nextEntries) {
+  if (storageLoadFailed) return false;
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(nextEntries));
     entries = nextEntries;

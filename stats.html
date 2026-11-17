@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5f0">
+    <title>감정 통계 | 마음 기록</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/list.js" defer></script>
+    <script src="js/stats.js" defer></script>
+    <script src="js/write.js" defer></script>
+    <script src="js/detail.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-page="stats">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="마음 기록 홈">
+        <span class="brand-mark" aria-hidden="true">마음</span>
+        <span>마음 기록</span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="nav-link" href="index.html"><span>일기</span><span>목록</span></a>
+        <a class="nav-link" href="write.html"><span>일기</span><span>쓰기</span></a>
+        <a class="nav-link active" href="stats.html" aria-current="page"><span>통계</span></a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드로 전환">
+        <span id="theme-icon" aria-hidden="true">☾</span>
+        <span id="theme-label">다크 모드</span>
+      </button>
+      <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
+    </header>
+
+    <main class="app-shell narrow-shell">
+      <a class="back-link" href="index.html">← 일기 목록</a>
+      <section class="intro write-intro" aria-labelledby="page-title">
+        <p class="eyebrow">YOUR MOOD IN REVIEW</p>
+        <h1 id="page-title">나의 감정 통계</h1>
+        <p>일기에 남긴 감정들을 모아 돌아봐요.</p>
+      </section>
+
+      <section class="panel stats-panel" aria-labelledby="stats-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">MOOD DISTRIBUTION</p>
+            <h2 id="stats-title">기록한 감정 비율</h2>
+          </div>
+          <span id="stats-total" class="stats-total">총 0개</span>
+        </div>
+        <div id="stats-empty" class="stats-empty" hidden>
+          <span class="empty-icon" aria-hidden="true">☁</span>
+          <strong>아직 통계를 볼 기록이 없어요</strong>
+          <span>일기를 작성하면 감정 비율을 여기서 확인할 수 있어요.</span>
+          <a class="primary-link" href="write.html">일기 쓰기</a>
+        </div>
+        <div id="mood-chart-content" class="mood-chart-content">
+          <div id="mood-pie-chart" class="mood-pie-chart" role="img"></div>
+          <ul id="mood-legend" class="mood-legend" aria-label="감정별 일기 비율"></ul>
+        </div>
+      </section>
+
+      <section class="panel weekly-stats-panel" aria-labelledby="weekly-stats-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">WRITING HABIT</p>
+            <h2 id="weekly-stats-title">주별 일기 작성 빈도</h2>
+          </div>
+          <span class="stats-total">최근 4주 · 날짜 수</span>
+        </div>
+        <p class="weekly-stats-description">같은 날 여러 편을 써도 하루로 계산해요.</p>
+        <div id="weekly-stats-empty" class="stats-empty" hidden>
+          <span class="empty-icon" aria-hidden="true">☁</span>
+          <strong>아직 기록을 집계할 수 없어요</strong>
+          <span>일기를 작성하면 주별 기록 일수를 확인할 수 있어요.</span>
+        </div>
+        <div id="weekly-chart" class="weekly-chart" role="list" aria-label="최근 4주간 주별 일기 작성 일수"></div>
+      </section>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> 통계는 이 브라우저에 저장된 일기를 기준으로 해요.</p>
+    </main>
+  </body>
+</html>

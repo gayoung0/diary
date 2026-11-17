@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5f0">
+    <title>일기 | 마음 기록</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/list.js" defer></script>
+    <script src="js/stats.js" defer></script>
+    <script src="js/write.js" defer></script>
+    <script src="js/detail.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-page="detail">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="마음 기록 홈">
+        <span class="brand-mark" aria-hidden="true">마음</span>
+        <span>마음 기록</span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="nav-link active" href="index.html" aria-current="page"><span>일기</span><span>목록</span></a>
+        <a class="nav-link" href="write.html"><span>일기</span><span>쓰기</span></a>
+        <a class="nav-link" href="stats.html"><span>통계</span></a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드로 전환">
+        <span id="theme-icon" aria-hidden="true">☾</span>
+        <span id="theme-label">다크 모드</span>
+      </button>
+      <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
+    </header>
+
+    <main class="app-shell narrow-shell detail-shell">
+      <a class="back-link" href="index.html">← 일기 목록으로</a>
+      <article id="diary-view" class="panel diary-page-panel" aria-live="polite"></article>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> 일기는 이 브라우저에만 저장돼요.</p>
+    </main>
+  </body>
+</html>

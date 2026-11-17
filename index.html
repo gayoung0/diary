@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5f0">
+    <title>나의 일기 목록 | 마음 기록</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/list.js" defer></script>
+    <script src="js/stats.js" defer></script>
+    <script src="js/write.js" defer></script>
+    <script src="js/detail.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-page="list">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="마음 기록 홈">
+        <span class="brand-mark" aria-hidden="true">마음</span>
+        <span>마음 기록</span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="nav-link active" href="index.html" aria-current="page"><span>일기</span><span>목록</span></a>
+        <a class="nav-link" href="write.html"><span>일기</span><span>쓰기</span></a>
+        <a class="nav-link" href="stats.html"><span>통계</span></a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드로 전환">
+        <span id="theme-icon" aria-hidden="true">☾</span>
+        <span id="theme-label">다크 모드</span>
+      </button>
+      <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
+    </header>
+
+    <main class="app-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">YOUR JOURNAL</p>
+        <h1 id="page-title">나의 감정 일기</h1>
+        <p>하루의 마음을 모아 보고, 다시 들여다보세요.</p>
+      </section>
+
+      <section class="panel list-page-panel" aria-labelledby="entries-title">
+        <div class="panel-heading entries-heading">
+          <div>
+            <p class="eyebrow">ALL YOUR MOMENTS</p>
+            <h2 id="entries-title">일기 목록 <span id="entry-total" class="total-count">0</span></h2>
+          </div>
+          <a class="primary-link" href="write.html"><span aria-hidden="true">＋</span> 새 일기 쓰기</a>
+        </div>
+
+        <div class="mood-summary">
+          <h3>감정별 기록</h3>
+          <div id="mood-counts" class="mood-counts"></div>
+        </div>
+
+        <div class="list-toolbar list-page-toolbar">
+          <h3 id="list-heading">전체 기록</h3>
+          <button id="show-all" class="text-button" type="button" hidden>전체 보기</button>
+        </div>
+        <ul id="entry-list" class="entry-list list-page-entries" aria-label="일기 목록"></ul>
+        <p id="empty-state" class="empty-state list-empty-state" hidden>
+          <span class="empty-icon" aria-hidden="true">☁</span>
+          <strong>아직 기록이 없어요</strong>
+          <span>오늘의 마음을 첫 일기로 남겨 보세요.</span>
+          <a class="secondary-link" href="write.html">첫 일기 쓰기</a>
+        </p>
+      </section>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> 일기는 이 브라우저에만 저장돼요.</p>
+    </main>
+  </body>
+</html>

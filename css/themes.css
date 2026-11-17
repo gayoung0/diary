@@ -1,0 +1,115 @@
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #e4ebe7;
+  --muted: #a1ada7;
+  --line: #39443f;
+  --paper: #222a26;
+  --page-bg: #171d1a;
+  --soft-surface: #1c2420;
+  --soft-border: #343e39;
+  --secondary-text: #c0cbc5;
+  --field-text: #cbd5cf;
+  --placeholder-text: #84918b;
+  --green-pale: #293b32;
+  --green-dark: #c2d8ca;
+  --accent: #e5a18a;
+  --shadow: 0 12px 35px rgb(0 0 0 / 18%);
+}
+
+body[data-theme="dark"] .panel {
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .nav-link,
+body[data-theme="dark"] .mode-option span,
+body[data-theme="dark"] .mood-option span,
+body[data-theme="dark"] .count-chip {
+  color: var(--secondary-text);
+}
+
+body[data-theme="dark"] .form-field input[type="text"],
+body[data-theme="dark"] .form-field select,
+body[data-theme="dark"] .form-field textarea,
+body[data-theme="dark"] .secondary-button,
+body[data-theme="dark"] .count-chip {
+  border-color: var(--line);
+  background: var(--soft-surface);
+  color: var(--ink);
+}
+
+body[data-theme="dark"] .form-field > label,
+body[data-theme="dark"] .mode-fieldset legend,
+body[data-theme="dark"] .mood-fieldset legend {
+  color: var(--field-text);
+}
+
+body[data-theme="dark"] .form-field input::placeholder,
+body[data-theme="dark"] .form-field textarea::placeholder {
+  color: var(--placeholder-text);
+}
+
+body[data-theme="dark"] .entry-link,
+body[data-theme="dark"] .entry-select {
+  border-color: var(--soft-border);
+  background: var(--soft-surface);
+  color: var(--ink);
+}
+
+body[data-theme="dark"] .entry-link:hover,
+body[data-theme="dark"] .entry-select:hover,
+body[data-theme="dark"] .entry-select[aria-current="true"],
+body[data-theme="dark"] .count-chip:hover,
+body[data-theme="dark"] .count-chip[aria-pressed="true"],
+body[data-theme="dark"] .secondary-button:hover {
+  border-color: #526b5d;
+  background: #28372f;
+}
+
+body[data-theme="dark"] .entry-detail {
+  border-color: var(--line);
+  background: var(--soft-surface);
+}
+
+body[data-theme="dark"] .diary-page-content {
+  border-color: var(--line);
+  color: var(--secondary-text);
+}
+
+body[data-theme="dark"] .mood-summary,
+body[data-theme="dark"] .detail-actions {
+  border-color: var(--line);
+}
+
+body[data-theme="dark"] .empty-state strong,
+body[data-theme="dark"] .detail-content,
+body[data-theme="dark"] .detail-title {
+  color: var(--secondary-text);
+}
+
+body[data-theme="dark"] .form-message {
+  color: #f0a18b;
+}
+
+body[data-theme="dark"] .draft-status-error {
+  color: #f0a18b;
+}
+
+body[data-theme="dark"] .danger-button {
+  border-color: #65433c;
+  background: #302321;
+  color: #f0ad9a;
+}
+
+body[data-theme="dark"] .danger-button:hover {
+  background: #422b26;
+}
+
+body[data-theme="dark"] .storage-warning {
+  border-color: #65433c;
+  background: #302321;
+  color: #f0ad9a;
+}
+
+body[data-theme="dark"] .weekly-chart-track {
+  background: #293b32;
+}

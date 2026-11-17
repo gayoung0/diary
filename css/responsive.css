@@ -1,0 +1,184 @@
+@media (max-width: 900px) {
+  .workspace {
+    grid-template-columns: minmax(270px, 0.85fr) minmax(0, 1.15fr);
+    gap: 14px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  .entries-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .entry-list {
+    max-height: 220px;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 16px 20px;
+  }
+
+  .brand {
+    grid-column: 1;
+    white-space: nowrap;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .nav-link {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 8px 6px;
+    line-height: 1.25;
+  }
+
+  .nav-link span + span::before {
+    content: "";
+  }
+
+  .theme-toggle {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .header-note {
+    font-size: 11px;
+  }
+
+  .app-shell {
+    width: calc(100% - 32px);
+    padding-top: 22px;
+  }
+
+  .mood-chart-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .mood-pie-chart {
+    width: min(72vw, 270px);
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  .entries-panel {
+    min-height: 0;
+  }
+
+  .entries-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .entry-detail {
+    padding: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .header-note {
+    max-width: 135px;
+    text-align: right;
+  }
+
+  .app-shell {
+    width: calc(100% - 28px);
+    padding-top: 18px;
+  }
+
+  .intro {
+    margin-bottom: 20px;
+  }
+
+  .intro > p:last-child {
+    font-size: 12px;
+  }
+
+  .desktop-break {
+    display: none;
+  }
+
+  .panel {
+    padding: 17px;
+    border-radius: 15px;
+  }
+
+  .entries-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .entry-detail {
+    min-height: 170px;
+  }
+
+  .detail-placeholder {
+    min-height: 140px;
+  }
+
+  .privacy-note {
+    text-align: center;
+  }
+
+  .site-header {
+    gap: 8px;
+  }
+
+  .site-nav {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 7px 6px;
+    font-size: 10px;
+  }
+
+  .theme-toggle {
+    min-height: 33px;
+    gap: 4px;
+    padding: 0 7px;
+    font-size: 10px;
+  }
+
+  .panel-heading {
+    gap: 10px;
+  }
+
+  .panel-heading h2 {
+    font-size: 17px;
+  }
+
+  .primary-link {
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .composer-page-panel .form-field textarea,
+  .edit-form .form-field textarea {
+    min-height: 240px;
+  }
+}

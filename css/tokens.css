@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light;
+  font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+  color: #303a39;
+  background: var(--page-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --ink: #303a39;
+  --muted: #818987;
+  --line: #e9e9e3;
+  --paper: #fff;
+  --page-bg: #f7f5f0;
+  --soft-surface: #fcfcfa;
+  --soft-border: #efefeb;
+  --secondary-text: #59635f;
+  --field-text: #4a5552;
+  --placeholder-text: #a7aeab;
+  --green: #53766a;
+  --green-dark: #3e6156;
+  --green-pale: #edf3ee;
+  --accent: #c98267;
+  --shadow: 0 12px 35px rgb(52 62 57 / 6%);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  color: #e4ebe7;
+  --ink: #e4ebe7;
+  --muted: #a1ada7;
+  --line: #39443f;
+  --paper: #222a26;
+  --page-bg: #171d1a;
+  --soft-surface: #1c2420;
+  --soft-border: #343e39;
+  --secondary-text: #c0cbc5;
+  --field-text: #cbd5cf;
+  --placeholder-text: #84918b;
+  --green-pale: #293b32;
+  --green-dark: #c2d8ca;
+  --accent: #e5a18a;
+  --shadow: 0 12px 35px rgb(0 0 0 / 18%);
+}

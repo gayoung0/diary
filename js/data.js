@@ -14,6 +14,7 @@ const page = document.body.dataset.page;
 let storageLoadFailed = false;
 let entries = [];
 
+// 저장된 전체 데이터를 읽고, 일부라도 형식이 잘못되면 원본을 유지하며 실패 처리합니다.
 function loadEntries() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -39,6 +40,7 @@ function renderStorageWarning() {
   document.querySelector("main").prepend(warning);
 }
 
+// 화면에서 사용할 일기 한 건의 필수 값과 모드별 규칙을 확인합니다.
 function isDiaryEntry(value) {
   return value !== null
     && typeof value === "object"
@@ -53,6 +55,7 @@ function isDiaryEntry(value) {
     && isValidDateString(value.updatedAt);
 }
 
+// 날짜 파싱 가능 여부와 날짜 문자열의 연·월·일이 실제 달력 날짜인지 확인합니다.
 function isValidDateString(value) {
   if (typeof value !== "string" || !Number.isFinite(Date.parse(value))) return false;
 
@@ -76,6 +79,7 @@ function getStorageWriteErrorMessage(action) {
   return `${action}하지 못했어요. 브라우저 저장 공간을 확인해 주세요.`;
 }
 
+// 읽기에 실패한 상태에서는 저장을 막아 손상된 원본이 덮어써지지 않게 합니다.
 function saveEntries(nextEntries) {
   if (storageLoadFailed) return false;
 
@@ -90,6 +94,7 @@ function saveEntries(nextEntries) {
 }
 
 function createId() {
+  // 브라우저가 UUID 생성을 지원하지 않는 경우에도 고유한 ID를 만듭니다.
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }

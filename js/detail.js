@@ -8,8 +8,10 @@ function initializeDetailPage() {
     return;
   }
 
+  // 일기 내용을 표시하고, 같은 화면에서 수정·삭제 동작을 연결합니다.
   renderEntry();
 
+  // 사용자 입력은 HTML이 아닌 텍스트로 넣어 원래 내용을 그대로 표시합니다.
   function renderEntry() {
     diaryView.replaceChildren();
 
@@ -59,6 +61,7 @@ function initializeDetailPage() {
     diaryView.append(heading, badge, metadata, content, mode, actions);
   }
 
+  // 선택한 일기의 입력 폼을 만들고 저장 시 공통 규칙으로 검증합니다.
   function renderEditForm() {
     diaryView.replaceChildren();
 
@@ -126,6 +129,7 @@ function initializeDetailPage() {
         content: contentInput.value,
       });
 
+      // 유효한 경우에만 기존 항목을 교체하고 수정 시각을 갱신합니다.
       if (!validation.valid) {
         message.textContent = validation.message;
         return;
@@ -151,6 +155,7 @@ function initializeDetailPage() {
     form.querySelector("#edit-title").focus();
   }
 
+  // 삭제 확인을 받은 뒤 저장소에서 해당 ID의 일기만 제거합니다.
   function deleteEntry() {
     if (!window.confirm("이 일기를 삭제할까요? 삭제한 일기는 되돌릴 수 없습니다.")) return;
     const nextEntries = entries.filter((item) => item.id !== entry.id);
@@ -162,6 +167,7 @@ function initializeDetailPage() {
   }
 }
 
+// 상세 수정 폼에서 라벨과 텍스트 입력 요소를 함께 생성합니다.
 function createTextField(labelText, id, value, maxLength) {
   const field = document.createElement("div");
   field.className = "form-field";
@@ -178,6 +184,7 @@ function createTextField(labelText, id, value, maxLength) {
   return field;
 }
 
+// ID에 해당하는 일기가 없을 때 목록으로 돌아갈 수 있는 안내를 표시합니다.
 function renderMissingEntry() {
   const diaryView = document.querySelector("#diary-view");
   const message = document.createElement("div");

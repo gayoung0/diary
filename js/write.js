@@ -10,6 +10,7 @@ function initializeWritePage() {
   const contentRequirement = document.querySelector("#content-requirement");
   const draftStatus = document.querySelector("#draft-status");
 
+  // 감정 선택지를 만들고 이전 초안을 복원한 다음 폼 이벤트를 연결합니다.
   renderMoodOptions(moodOptions);
   restoreDraft();
   modeInputs.forEach((input) => input.addEventListener("change", () => {
@@ -26,6 +27,7 @@ function initializeWritePage() {
   form.addEventListener("change", saveDraft);
   form.addEventListener("submit", saveNewEntry);
 
+  // 임시 저장 내용을 검사한 뒤 폼에 복원하고 저장 시각을 안내합니다.
   function restoreDraft() {
     let draft;
     try {
@@ -62,6 +64,7 @@ function initializeWritePage() {
     draftStatus.textContent = `임시 저장한 내용을 불러왔어요${timeLabel}. 입력하면 자동 저장됩니다.`;
   }
 
+  // 입력이 바뀔 때마다 초안을 저장하며, 빈 폼이면 남은 초안을 지웁니다.
   function saveDraft() {
     const draft = {
       mode: getSelectedMode(form),
@@ -123,6 +126,7 @@ function initializeWritePage() {
       content: contentInput.value,
     });
 
+    // 검증에 성공한 입력만 일기 데이터에 담아 저장합니다.
     if (!validation.valid) {
       formMessage.textContent = validation.message;
       return;
@@ -152,6 +156,7 @@ function initializeWritePage() {
   }
 }
 
+// 임시 초안은 아직 완성된 일기가 아니므로 필드 구조를 따로 확인합니다.
 function isDiaryDraft(value) {
   return value !== null
     && typeof value === "object"
@@ -164,6 +169,7 @@ function isDiaryDraft(value) {
     && typeof value.savedAt === "string";
 }
 
+// 공통 감정 목록으로 라디오 선택지를 만들고 기존 감정을 선택 상태로 표시합니다.
 function renderMoodOptions(container, selectedMood = null) {
   container.replaceChildren();
   MOODS.forEach((mood, index) => {
@@ -184,6 +190,7 @@ function renderMoodOptions(container, selectedMood = null) {
   });
 }
 
+// 현재 선택된 작성 모드를 폼에서 가져옵니다.
 function getSelectedMode(form) {
   return form.querySelector('input[name="mode"]:checked').value;
 }

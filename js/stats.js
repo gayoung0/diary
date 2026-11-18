@@ -60,6 +60,7 @@ function initializeStatsPage() {
     });
   }
 
+  // 통계 페이지에 들어올 때 저장된 일기를 기준으로 최근 4주를 다시 계산합니다.
   const weeklyData = getWeeklyWritingDays(entries, new Date());
   renderWeeklyWritingChart(weeklyChart, weeklyEmptyState, weeklyData, total > 0);
 }
@@ -84,6 +85,7 @@ function getWeeklyWritingDays(diaryEntries, referenceDate) {
     return { start, end, recordedDates: new Set() };
   });
 
+  // 작성 시각을 기기의 현지 날짜로 바꾸고, 같은 날의 여러 일기는 한 번만 셉니다.
   diaryEntries.forEach((entry) => {
     const createdAt = new Date(entry.createdAt);
     if (Number.isNaN(createdAt.getTime())) return;
@@ -113,6 +115,7 @@ function renderWeeklyWritingChart(container, emptyState, weeks, hasEntries) {
   container.replaceChildren();
   emptyState.hidden = hasEntries;
 
+  // 기록이 없는 주도 0일 막대로 표시해 최근 4주를 빠짐없이 보여줍니다.
   weeks.forEach((week) => {
     const item = document.createElement("div");
     item.className = "weekly-chart-item";

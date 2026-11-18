@@ -12,6 +12,7 @@ function initializeListPage() {
     renderList();
   });
 
+  // 선택된 감정에 맞춰 일기 목록, 제목, 빈 목록 안내를 다시 그립니다.
   function renderList() {
     renderMoodCounts();
     entryList.replaceChildren();
@@ -59,6 +60,7 @@ function initializeListPage() {
     }
   }
 
+  // 전체 및 감정별 일기 개수를 만들고, 버튼 선택 시 해당 목록을 보여줍니다.
   function renderMoodCounts() {
     moodCounts.replaceChildren();
     moodCounts.append(createCountButton("전체", entries.length, activeMood === null, () => {
@@ -83,6 +85,7 @@ function initializeListPage() {
   renderList();
 }
 
+// 현재 선택 여부와 개수를 접근성 상태까지 포함한 감정 필터 버튼으로 만듭니다.
 function createCountButton(label, count, isActive, onClick) {
   const button = document.createElement("button");
   button.className = "count-chip";

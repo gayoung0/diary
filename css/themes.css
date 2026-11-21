@@ -1,21 +1,3 @@
-body[data-theme="dark"] {
-  color-scheme: dark;
-  --ink: #e4ebe7;
-  --muted: #a1ada7;
-  --line: #39443f;
-  --paper: #222a26;
-  --page-bg: #171d1a;
-  --soft-surface: #1c2420;
-  --soft-border: #343e39;
-  --secondary-text: #c0cbc5;
-  --field-text: #cbd5cf;
-  --placeholder-text: #84918b;
-  --green-pale: #293b32;
-  --green-dark: #c2d8ca;
-  --accent: #e5a18a;
-  --shadow: 0 12px 35px rgb(0 0 0 / 18%);
-}
-
 body[data-theme="dark"] .panel {
   border-color: var(--line);
 }
@@ -57,17 +39,11 @@ body[data-theme="dark"] .entry-select {
 
 body[data-theme="dark"] .entry-link:hover,
 body[data-theme="dark"] .entry-select:hover,
-body[data-theme="dark"] .entry-select[aria-current="true"],
 body[data-theme="dark"] .count-chip:hover,
 body[data-theme="dark"] .count-chip[aria-pressed="true"],
 body[data-theme="dark"] .secondary-button:hover {
   border-color: #526b5d;
   background: #28372f;
-}
-
-body[data-theme="dark"] .entry-detail {
-  border-color: var(--line);
-  background: var(--soft-surface);
 }
 
 body[data-theme="dark"] .diary-page-content {

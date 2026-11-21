@@ -190,7 +190,6 @@ function renderMoodOptions(container, selectedMood = null) {
   });
 }
 
-// 현재 선택된 작성 모드를 폼에서 가져옵니다.
 function getSelectedMode(form) {
   return form.querySelector('input[name="mode"]:checked').value;
 }
